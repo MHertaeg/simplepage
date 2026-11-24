@@ -2,24 +2,228 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>My Website</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 60px auto;
-            padding: 20px;
-            background: #f5f5f5;
-        }
-        h1 {
-            color: #333;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Michael & Sherilyn | Wishing Well</title>
+
+<style>
+:root {
+    --green: #536b55;
+    --dark: #344638;
+    --cream: #f7f5ee;
+    --gold: #b6a47b;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: Georgia, serif;
+    background: var(--cream);
+    color: var(--dark);
+    line-height: 1.7;
+}
+
+header {
+    text-align: center;
+    padding: 65px 20px 35px;
+}
+
+header .date {
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--green);
+}
+
+h1 {
+    font-size: clamp(38px, 8vw, 64px);
+    font-weight: normal;
+    margin: 15px 0;
+}
+
+.subtitle {
+    font-size: 17px;
+    font-style: italic;
+    color: var(--green);
+}
+
+main {
+    max-width: 580px;
+    margin: auto;
+    padding: 0 20px 50px;
+}
+
+.intro {
+    text-align: center;
+    margin: 10px 0 35px;
+    font-size: 17px;
+}
+
+h2 {
+    font-weight: normal;
+    text-align: center;
+    font-size: 25px;
+    margin-top: 0;
+}
+
+.payment {
+    background: white;
+    padding: 30px 25px;
+    border-radius: 4px;
+    margin-bottom: 22px;
+    text-align: center;
+    box-shadow: 0 4px 20px #00000008;
+}
+
+.detail-label {
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #858d7e;
+    margin-top: 20px;
+}
+
+.detail {
+    font-size: 21px;
+    margin: 3px 0;
+    overflow-wrap: anywhere;
+}
+
+.copy-btn {
+    background: var(--green);
+    color: white;
+    border: none;
+    padding: 9px 18px;
+    margin-top: 7px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.copy-btn:hover {
+    background: var(--dark);
+}
+
+footer {
+    text-align: center;
+    padding: 30px 20px 55px;
+    color: var(--green);
+    font-style: italic;
+    font-size: 19px;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #dedfd3;
+    margin: 28px 0;
+}
+</style>
 </head>
+
 <body>
-    <h1>Hello World!</h1>
-    <p>My website is hosted on GitHub Pages.</p>
+
+<header>
+    <div class="date">12 DECEMBER 2026</div>
+    <h1>Michael & Sherilyn</h1>
+    <div class="subtitle">A celebration of love</div>
+</header>
+
+<main>
+
+    <p class="intro">
+        Your presence at our wedding is the greatest gift
+        we could ask for.
+
+        If you would like to give us something extra,
+        a contribution towards our future together
+        would be very much appreciated.
+
+        Thank you for being part of our special day.
+    </p>
+
+    <section class="payment">
+        <h2>Bank Transfer</h2>
+
+        <div class="detail-label">Account Name</div>
+        <div class="detail" id="accountName">
+            YOUR ACCOUNT NAME
+        </div>
+        <button class="copy-btn"
+            onclick="copyText('accountName', this)">
+            Copy account name
+        </button>
+
+        <hr>
+
+        <div class="detail-label">BSB</div>
+        <div class="detail" id="bsb">
+            XXX-XXX
+        </div>
+        <button class="copy-btn"
+            onclick="copyText('bsb', this)">
+            Copy BSB
+        </button>
+
+        <div class="detail-label">Account Number</div>
+        <div class="detail" id="accountNumber">
+            XXXXXXXX
+        </div>
+        <button class="copy-btn"
+            onclick="copyText('accountNumber', this)">
+            Copy account number
+        </button>
+    </section>
+
+    <section class="payment">
+        <h2>PayID</h2>
+
+        <p>
+            You can also send a gift using PayID.
+        </p>
+
+        <div class="detail-label">PayID</div>
+        <div class="detail" id="payid">
+            YOUR-PAYID-HERE
+        </div>
+
+        <button class="copy-btn"
+            onclick="copyText('payid', this)">
+            Copy PayID
+        </button>
+    </section>
+
+</main>
+
+<footer>
+    With love and gratitude,<br>
+    Michael & Sherilyn
+</footer>
+
+<script>
+async function copyText(id, button) {
+    const text = document.getElementById(id)
+        .textContent.trim();
+
+    try {
+        await navigator.clipboard.writeText(text);
+        button.textContent = "Copied!";
+    } catch (error) {
+        button.textContent = "Unable to copy";
+    }
+
+    setTimeout(() => {
+        button.textContent =
+            button.dataset.original || "Copy";
+    }, 2000);
+}
+
+// Set original button labels
+document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.dataset.original = btn.textContent;
+});
+</script>
+
 </body>
 </html>
